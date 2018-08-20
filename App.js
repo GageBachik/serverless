@@ -8,7 +8,22 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
+import ACAnalytics from 'appcenter-analytics';
 import CodePush from 'react-native-code-push';
+import { Analytics } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify'
+
+const query = `
+  query list {
+    listTodos {
+      items {
+        id
+        name
+        completed
+      }
+    }
+  }
+`
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,8 +34,14 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+  state = { todos: [] }
+  async componentDidMount() {
+    const todos = await API.graphql(graphqlOperation(query))
+    this.setState({ todos: todos.data.listTodos.items })
+  }
   codePushSync(){
-    console.log("code push sync initiated");
+    Analytics.record("CodePush Sync Pressed Amazon");
+    ACAnalytics.trackEvent("Codpush Sync Pressed");
     CodePush.sync({
       updateDialog: true,
       installMode: CodePush.InstallMode.IMMEDIATE
@@ -29,8 +50,12 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Code Push Active!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
+        <Text style={styles.welcome}>Todos</Text>
+        {
+          this.state.todos.map((todo, index) => (
+            <Text key={index}>{todo.name}</Text>
+          ))
+        }
         <Text style={styles.instructions}>{instructions}</Text>
         <Button title="Code Push Sync" onPress={() => this.codePushSync()} />
       </View>

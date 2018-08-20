@@ -10,6 +10,8 @@
     "appcenter": "^1.7.1",
     "appcenter-analytics": "^1.7.1",
     "appcenter-crashes": "^1.7.1",
+    "aws-amplify": "^1.0.6",
+    "aws-amplify-react-native": "^1.0.6",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-code-push": "^5.4.1"
