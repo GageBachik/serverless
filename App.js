@@ -13,7 +13,10 @@ import CodePush from 'react-native-code-push';
 import { Analytics } from 'aws-amplify';
 import { API, graphqlOperation } from 'aws-amplify'
 
-const query = `
+import { Query } from "react-apollo";
+import gql from 'graphql-tag';
+
+const getTodos = gql`
   query list {
     listTodos {
       items {
@@ -34,11 +37,7 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
-  state = { todos: [] }
-  async componentDidMount() {
-    const todos = await API.graphql(graphqlOperation(query))
-    this.setState({ todos: todos.data.listTodos.items })
-  }
+  // state = { todos: [] }
   codePushSync(){
     Analytics.record("CodePush Sync Pressed Amazon");
     ACAnalytics.trackEvent("Codpush Sync Pressed");
@@ -50,12 +49,21 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Todos</Text>
-        {
-          this.state.todos.map((todo, index) => (
-            <Text key={index}>{todo.name}</Text>
-          ))
-        }
+        <Text style={styles.welcome}>Todos:</Text>
+        <Query query={getTodos}>
+          {({ loading, error, data }) => {
+            if (loading) return <Text>Loading...</Text>;
+            if (error) return <Text>Error :(</Text>;
+            {/* console.log(data.listTodos); */}
+            return data.listTodos.items.map((todo, index) => (
+              <Text key={index}>{todo.name}</Text>
+            ));
+            {/* { 
+              console.log(data);
+              return (<Text> LUL </Text>)
+            } */}
+          }}
+        </Query>
         <Text style={styles.instructions}>{instructions}</Text>
         <Button title="Code Push Sync" onPress={() => this.codePushSync()} />
       </View>
