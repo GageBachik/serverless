@@ -17,6 +17,8 @@ target 'serverless' do
 
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'serverlessTests' do
     inherit! :search_paths
     # Pods for testing

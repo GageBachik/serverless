@@ -10,8 +10,6 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 import ACAnalytics from 'appcenter-analytics';
 import CodePush from 'react-native-code-push';
-import { Analytics } from 'aws-amplify';
-import { API, graphqlOperation } from 'aws-amplify'
 
 import { Query } from "react-apollo";
 import gql from 'graphql-tag';
@@ -54,14 +52,10 @@ export default class App extends Component<Props> {
           {({ loading, error, data }) => {
             if (loading) return <Text>Loading...</Text>;
             if (error) return <Text>Error :(</Text>;
-            {/* console.log(data.listTodos); */}
+
             return data.listTodos.items.map((todo, index) => (
               <Text key={index}>{todo.name}</Text>
             ));
-            {/* { 
-              console.log(data);
-              return (<Text> LUL </Text>)
-            } */}
           }}
         </Query>
         <Text style={styles.instructions}>{instructions}</Text>
