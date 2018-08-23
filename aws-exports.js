@@ -20,6 +20,11 @@ const awsmobile = {
     'aws_project_name': 'serverless',
     'aws_project_region': 'us-west-1',
     'aws_resource_name_prefix': 'serverless-mobilehub-1594246059',
+    'aws_sign_in_enabled': 'enable',
+    'aws_user_pools': 'enable',
+    'aws_user_pools_id': 'us-west-2_SPCNQ7YmW',
+    'aws_user_pools_mfa_type': 'OFF',
+    'aws_user_pools_web_client_id': '60vsf3o94l6569al7c6opm9bhs',
 }
 
 export default awsmobile;

@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
+import {Analytics} from 'aws-amplify';
 import ACAnalytics from 'appcenter-analytics';
 import CodePush from 'react-native-code-push';
 
@@ -34,7 +35,7 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+class App extends Component<Props> {
   // state = { todos: [] }
   codePushSync(){
     Analytics.record("CodePush Sync Pressed Amazon");
@@ -64,6 +65,8 @@ export default class App extends Component<Props> {
     );
   }
 }
+
+export default CodePush(App)
 
 const styles = StyleSheet.create({
   container: {

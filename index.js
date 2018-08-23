@@ -3,7 +3,7 @@
 import React from 'react';
 import {AppRegistry} from 'react-native';
 import {name as appName} from './app.json';
-import Tab from './Tabs'
+import Main from './Main'
 
 import AWSAppSyncClient from "aws-appsync";
 import { Rehydrated } from 'aws-appsync-react';
@@ -11,7 +11,7 @@ import { AUTH_TYPE } from "aws-appsync/lib/link/auth-link";
 import { graphql, ApolloProvider, compose } from 'react-apollo';
 import * as AWS from 'aws-sdk';
 
-import Amplify, {Analytics} from 'aws-amplify';
+import Amplify, {Auth} from 'aws-amplify';
 import config from './aws-exports';
 import AppSync from './AppSync';
 Amplify.configure(config);
@@ -45,7 +45,7 @@ const client = new AWSAppSyncClient({
 const WithProvider = () => (
   <ApolloProvider client={client}>
       <Rehydrated>
-          <Tab />
+          <Main />
       </Rehydrated>
   </ApolloProvider>
 );
