@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
-import {Analytics} from 'aws-amplify';
+import {Analytics, Auth} from 'aws-amplify';
 import ACAnalytics from 'appcenter-analytics';
 import CodePush from 'react-native-code-push';
 
@@ -44,6 +44,9 @@ class App extends Component<Props> {
       updateDialog: true,
       installMode: CodePush.InstallMode.IMMEDIATE
     });
+    Auth.signOut()
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
   }
   render() {
     return (

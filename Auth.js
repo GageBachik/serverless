@@ -7,22 +7,28 @@ type Props = {};
 export default class AuthComp extends Component<Props> {
   signUp(){
     Auth.signUp({
-      username: 'afuzzyducky',
+      username: 'Phantom',
       password: 'Lolsauce123!',
       attributes:{
-        email: 'gbachik@gmail.com'
+        email: 'Phantom@gmail.com'
       }
     }).then(data => {
       console.log(data)
-      Auth.signIn('gbachik', 'Lolsauce123!')
-      .then(user => console.log(user))
+      Auth.signIn('Phantom', 'Lolsauce123!')
+      .then(user => {
+        console.log(user)
+        this.props.navigation.navigate('Home');
+      })
       .catch(err => console.log(err));
     })
       .catch(err => console.log(err));
   }
   signIn(){
-    Auth.signIn('gbachik', 'Lolsauce123!')
-      .then(user => console.log(user))
+    Auth.signIn('Phantom', 'Lolsauce123!')
+      .then(user => {
+        console.log(user)
+        this.props.navigation.navigate('Home');
+      })
       .catch(err => console.log(err));
   }
   render() {
